@@ -5,7 +5,7 @@ public class Corso {
 	private String codins;
 	private Integer crediti;
 	private String nome;
-	private Integer pd;
+	private Integer pd; //periodo didattico
 	
 	
 	public Corso(String codins, Integer crediti, String nome, Integer pd) {
@@ -48,7 +48,10 @@ public class Corso {
 		this.pd = pd;
 	}
 
-	@Override
+	@Override 
+	// --> DA IMPLEMENTARE HASHCODE, EQUALS e TOSTRING
+	// usando le CHIAVI PRIMARIE per definirli
+	// perché definisce univocamente un corso
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

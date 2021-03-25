@@ -11,31 +11,46 @@ import java.util.Map;
 
 import it.polito.tdp.corsi.model.Corso;
 
+/**
+ * METODI che usano le QUERY JDBC
+ * di Sequel Pro
+ * 
+ * @author elena
+ *
+ */
+
 public class CorsoDAO {
 
+	// La query mi restituisce i corsi in quel periodo, che io metterò nella LIST result
 	public List<Corso> getCorsiByPeriodo(Integer periodo){
 		String sql = "select * "
 				+ "from corso "
-				+ "where pd = ?";
+				+ "where pd = ?"; //il periodo didattico viene messo dallo user
 		List<Corso> result = new ArrayList<Corso>();
 		
+		//SEMPRE POSSIBILE OTTENERE UN'ECCEZIONE in DAO
 		try {
+			//Creo connessione
 			Connection conn = DBConnect.getConnection();
+			//Preparo l'esecuzione dello statement 
 			PreparedStatement st = conn.prepareStatement(sql);
+			//Al posto dell'1 della query imposto il mio unico
+			// parametro (?), ovvero il PERIODO
 			st.setInt(1, periodo);
 			ResultSet rs = st.executeQuery();
 			
+			//ITERARE con WHILE il RESULT SET
+			//salvare i vari corsi in result
 			while(rs.next()) {
 				Corso c = new Corso(rs.getString("codins"), rs.getInt("crediti"), 
 						rs.getString("nome"), rs.getInt("pd"));
 				result.add(c);
 			}
-			
-			rs.close();
-			st.close();
+				
+			//chiudo la connessione 
 			conn.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException(e); //PROPAGO L'ECCEZIONE
 		}
 		
 		return result;

@@ -53,20 +53,24 @@ public class FXMLController {
     	
     	txtRisultato.clear();
     	
+    	//IN UNA TEXT AREA ottengo per forza UNA STRINGA
+    	//in questo caso quella stringa = periodo DIDATTICO
     	String periodoStringa = txtPeriodo.getText();
+    	//devo provare a convertirla in un numero
     	Integer periodo;
     	
+    	// CONTROLLO DELL'INPUT
     	try {
     		periodo = Integer.parseInt(periodoStringa);
     	}catch (NumberFormatException ne) {
     		txtRisultato.setText("Devi inserire un numero (1 o 2) per il periodo didattico");
     		return;
-    	}catch (NullPointerException npe) {
+    	}catch (NullPointerException npe) { //se campo è nullo
     		txtRisultato.setText("Devi inserire un numero (1 o 2) per il periodo didattico");
     		return;
     	}
     	
-    	if(periodo < 1 || periodo > 2) {
+    	if(periodo < 1 || periodo > 2) { 
     		txtRisultato.setText("Devi inserire un numero (1 o 2) per il periodo didattico");
     		return;
     	}
